@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>College Inquiry Chatbot</title>
+  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      text-align: center;
+      background-color: #f9f9f9;
+    }
+    form {
+      margin-bottom: 20px;
+    }
+    input {
+      margin: 5px;
+      padding: 10px;
+      width: 250px;
+    }
+    #userDetails {
+      margin-bottom: 20px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>College Inquiry Chatbot</h2>
+
+  <!-- Step 1: User Form -->
+  <form id="userForm">
+    <input type="text" id="fname" placeholder="First Name" required /><br>
+    <input type="text" id="lname" placeholder="Last Name" required /><br>
+    <input type="email" id="email" placeholder="Email Address" required /><br>
+    <button type="submit">Start Chat</button>
+  </form>
+
+  <!-- Step 2: Display User Info and Creator Info -->
+  <div id="userDetails">
+    <p id="greetingText" style="font-weight: bold;"></p>
+    <p>This chatbot was created by <strong>Harshini Revalli</strong> (<a href="mailto:revallh@mail.uc.edu">revallh@mail.uc.edu</a>).</p>
+  </div>
+
+  <!-- Step 3: Chatbot -->
+  <div id="chatbot" style="display: none;"></div>
+
+  <!-- Step 4: JavaScript -->
+  <script>
+    const form = document.getElementById("userForm");
+    const chatbotDiv = document.getElementById("chatbot");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const fname = document.getElementById("fname").value.trim();
+      const lname = document.getElementById("lname").value.trim();
+      const email = document.getElementById("email").value.trim();
+
+      // Display greeting and creator info
+      document.getElementById("greetingText").innerText =
+        `Welcome ${fname} ${lname}! We'll reach out to you at ${email}.`;
+      document.getElementById("userDetails").style.display = "block";
+
+      // Create and insert chatbot
+      const dfMessenger = document.createElement("df-messenger");
+      dfMessenger.setAttribute("chat-title", "CollegeBot");
+      dfMessenger.setAttribute("agent-id", "2916610e-60f2-4147-b0a4-c2000f40192b");
+      dfMessenger.setAttribute("language-code", "en");
+      chatbotDiv.appendChild(dfMessenger);
+
+      chatbotDiv.style.display = "block";
+      form.style.display = "none";
+    });
+  </script>
+</body>
+</html>
